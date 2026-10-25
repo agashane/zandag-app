@@ -9,18 +9,29 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@zandag-app/api": "*",
     "@chakra-ui/react": "^3.37.0",
     "@emotion/react": "^11.14.0",
     "@fontsource-variable/public-sans": "^5.3.0",
+    "@hookform/resolvers": "^6.0.0",
+    "@medusajs/js-sdk": "^2.22.1",
+    "@medusajs/types": "^2.22.1",
+    "@mercurjs/client": "^2.3.7",
+    "@mercurjs/types": "^2.3.7",
     "@react-router/fs-routes": "^8.5.0",
     "@react-router/node": "^8.4.0",
     "@react-router/serve": "^8.4.0",
+    "@t3-oss/env-core": "^0.13.11",
+    "better-result": "^3.0.1",
     "isbot": "^5.1.36",
     "next-themes": "^0.4.6",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "react-hook-form": "^7.91.0",
     "react-icons": "^5.7.0",
-    "react-router": "^8.4.0"
+    "react-router": "^8.4.0",
+    "remix-hook-form": "^7.3.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.65.0",
