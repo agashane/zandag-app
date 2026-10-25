@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: zandag_app_db
+    restart: unless-stopped
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: dev@ERU.labs243
+      POSTGRES_USER: ligantoine02
+      POSTGRES_DB: zandag_app_db
+    ports:
+      - 127.0.0.1:5455:5432
+    volumes:
+      - zandag_app_pg_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  redis:
+    image: redis:latest
+    container_name: zandag_app_redis_cache
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:6391:6379
+    volumes:
+      - zandag_app_cache:/data
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6391
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  zandag_app_pg_data:
+
+  zandag_app_cache:
