@@ -10,6 +10,8 @@ export const env = createEnv({
     AUTH_JWT_KEY: z.string(),
     WEBSITE_URL: z.string(),
     COOKIE_SECRET: z.string(),
+    STORE_URL: z.url(),
+    MEDUSA_PUBLISHABLE_KEY: z.string(),
   },
   runtimeEnv: process.env,
 });

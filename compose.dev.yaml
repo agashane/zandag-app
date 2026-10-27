@@ -40,6 +40,23 @@ services:
       retries: 5
       start_period: 30s
 
+    # Meilisearch
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    container_name: zandag_app_meilisearch
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:7701:7700
+    volumes:
+      - ./meili_data:/meili_data
+    environment:
+      MEILI_MASTER_KEY: MspKEcAJ8zF4B1lwZ4WcFoCK0JWT7RDKOU4YcDUjKqfq2f0G9CXVg3huiOTS9IE5
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7700"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 volumes:
   zandag_app_pg_data:
 

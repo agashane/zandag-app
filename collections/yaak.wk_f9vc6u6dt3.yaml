@@ -1,0 +1,23 @@
+type: workspace
+model: workspace
+id: wk_f9vc6u6dt3
+createdAt: 2026-10-26T12:16:49.375404840
+updatedAt: 2026-10-26T12:19:14.706804766
+authentication: {}
+authenticationType: null
+description: ''
+headers:
+- enabled: true
+  name: x-publishable-api-key
+  value: ${[ PUBLISHABLE_API_KEY ]}
+  id: gIIQKnMwsi
+- enabled: true
+  name: ''
+  value: ''
+  id: QtJ3jBbZFb
+name: Zandag app
+encryptionKeyChallenge: null
+settingValidateCertificates: true
+settingFollowRedirects: true
+settingRequestTimeout: 0
+settingDnsOverrides: []

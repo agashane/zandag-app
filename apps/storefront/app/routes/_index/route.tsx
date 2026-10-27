@@ -1,27 +1,19 @@
-import { Box } from "@chakra-ui/react/box";
 import type { Route } from "./+types/route";
-import { Heading } from "@chakra-ui/react/heading";
-import { Button } from "@chakra-ui/react/button";
+import { SimpleGrid } from "@chakra-ui/react/simple-grid";
 import { Container } from "@chakra-ui/react/container";
-import { formatDate } from "~/lib/utils";
+import { HStack } from "@chakra-ui/react/stack";
+import { useStoreContext } from "~/lib/store.context";
+import { ProductCard, ProductsScroll } from "~/features/product/components";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
-
-export function loader() {
-  return { message: "Hi" };
-}
+export { loader } from "./loader";
 
 export default function Home({ loaderData }: Route.ComponentProps) {
+  const { categories } = useStoreContext();
+  const { recommendedProducts } = loaderData;
+
   return (
     <Container>
-      <Heading>Welcome to React Router with 1ilLI0o</Heading>
-      <Button>Button</Button>
-      <p>{formatDate(new Date())}</p>
+      <ProductsScroll items={recommendedProducts} />
     </Container>
   );
 }

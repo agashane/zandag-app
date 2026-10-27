@@ -1,0 +1,18 @@
+type: http_request
+model: http_request
+id: rq_FreWvyCbaj
+createdAt: 2026-10-26T12:26:20.365168442
+updatedAt: 2026-10-27T13:43:19.150177097
+workspaceId: wk_f9vc6u6dt3
+folderId: null
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Offers
+sortPriority: -1793017098447.0
+url: ${[ STORE_API ]}/offers?fields=*seller,*product,+calculated_price&region_id=${[ REGION_ID ]}
+urlParameters: []

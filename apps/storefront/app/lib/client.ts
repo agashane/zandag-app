@@ -1,15 +1,19 @@
 import Medusa from "@medusajs/js-sdk";
 import { createClient, type InferClient } from "@mercurjs/client";
 import type { Routes } from "@zandag-app/api/_generated";
-
-const MEDUSA_BACKEND_URL = "http://localhost:9000";
+import { env } from "~/env/server";
 
 export const mercur: InferClient<Routes> = createClient({
-  baseUrl: MEDUSA_BACKEND_URL,
+  baseUrl: env.STORE_URL,
+  fetchOptions: {
+    headers: {
+      "x-publishable-api-key": env.MEDUSA_PUBLISHABLE_KEY as string,
+    },
+  },
 });
 
 export const medusa = new Medusa({
-  baseUrl: MEDUSA_BACKEND_URL,
+  baseUrl: env.STORE_URL,
   debug: process.env.NODE_ENV === "development",
-  publishableKey: process.env.VITE_PUBLISHABLE_KEY,
+  publishableKey: env.MEDUSA_PUBLISHABLE_KEY,
 });

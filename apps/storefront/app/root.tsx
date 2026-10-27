@@ -1,4 +1,5 @@
 import {
+  data,
   isRouteErrorResponse,
   Links,
   Meta,
@@ -10,6 +11,46 @@ import "@fontsource-variable/public-sans";
 
 import type { Route } from "./+types/root";
 import { Provider } from "~/components/ui/provider";
+import { commitSession, getSession } from "./server/session";
+import { Result } from "better-result";
+import { getRegionFromSession } from "./server/region";
+import { setupCart } from "./server/cart";
+import { listCategories } from "./features/category/api";
+import type { HttpTypes } from "@mercurjs/types";
+import type { StoreContextType } from "./lib/store.context";
+import { getRegionData } from "./features/shared/region";
+
+export const loader = async ({ request }: Route.LoaderArgs) => {
+  const session = await getSession(request.headers.get("Cookie"));
+
+  const results = await Result.allAsync([
+    getRegionData(request),
+    setupCart(request),
+    listCategories(),
+  ] as const);
+
+  let categories: Array<HttpTypes.StoreProductCategory> = [];
+  let user: HttpTypes.StoreCustomer | null = null;
+  let cart: HttpTypes.StoreCart | null = null;
+  let region: HttpTypes.StoreRegion | null = null;
+
+  results.map((res) => {
+    const [regionResponse, cartResponse, categoriesResponse] = res;
+    session.set("region", regionResponse.id);
+    region = regionResponse;
+
+    session.set("cartId", cartResponse.id);
+    cart = cartResponse;
+    categories = categoriesResponse.unwrap().product_categories;
+  });
+
+  return data(
+    { categories, cart, user, region },
+    {
+      headers: { "Set-Cookie": await commitSession(session) },
+    },
+  );
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -29,10 +70,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function App() {
+export default function App({ loaderData }: Route.ComponentProps) {
+  const { categories, cart, user, region } = loaderData;
+
   return (
     <Provider forcedTheme="light">
-      <Outlet />
+      <Outlet
+        context={
+          {
+            cart: cart!,
+            categories,
+            user,
+            region: region!,
+          } satisfies StoreContextType
+        }
+      />
     </Provider>
   );
 }
