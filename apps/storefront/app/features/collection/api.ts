@@ -2,6 +2,8 @@ import type { HttpTypes } from "@mercurjs/types";
 import { Result } from "better-result";
 import { mercur } from "~/lib/client";
 import { CollectionNotFound } from "./errors";
+import { getRegionData } from "../shared/region";
+import { getProductsWithOffers } from "../product/utils/group-offers";
 
 const COLLECTION_FIELDS = "+media_images.*";
 
@@ -25,7 +27,7 @@ export const getCollection = (handle: string) =>
     try: async () => {
       const result = await mercur.store.collections.query({
         handle,
-        fields: "*media_images,*products",
+        fields: "*media_images",
       });
 
       if (result.count === 0) throw null;
@@ -33,4 +35,14 @@ export const getCollection = (handle: string) =>
       return result.collections.at(0)!;
     },
     catch: () => null,
+  });
+
+export const getProductsByCollection = (request: Request, id: string) =>
+  Result.gen(async function* () {
+    const products = yield* Result.await(getProductsWithOffers(request));
+    const filteredProducts = products.filter(
+      (item) => item.product.collection_id === id,
+    );
+
+    return Result.ok(filteredProducts);
   });

@@ -5,12 +5,11 @@ import { Image } from "@chakra-ui/react/image";
 import { Box } from "@chakra-ui/react/box";
 
 import type { ProductWithOffers } from "../utils/group-offers";
-import { pluralize } from "~/lib/utils";
 import { LinkBox, LinkOverlay } from "@chakra-ui/react/link";
 import { Link } from "react-router";
 import { getProductWithOfferPrice } from "../utils";
 import { IconButton } from "@chakra-ui/react/button";
-import { RiArrowLeftFill, RiArrowRightLine } from "react-icons/ri";
+import { RiArrowRightLine } from "react-icons/ri";
 import { FALLBACK_IMAGE_URL } from "~/features/shared/constants";
 
 interface Props {
@@ -41,6 +40,8 @@ export const ProductCard = ({ item }: Props) => {
           <Image
             src={thumbnail}
             alt={productName}
+            loading="lazy"
+            fetchPriority="high"
             _groupHover={{
               scale: "1.2",
               transition: "all 0.2s ease-in",

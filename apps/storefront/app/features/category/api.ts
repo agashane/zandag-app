@@ -34,17 +34,12 @@ export const getCategory = (handle: string) =>
         fields: CATEGORY_FIELDS,
       })) as HttpTypes.StoreProductCategoryListResponse;
 
-      if (result.count === 0)
-        throw new CategoryNotFound({
-          handle,
-          message: "Category not found",
-        });
+      if (result.count === 0) throw null;
 
       const category = result.product_categories.at(
         0,
       )! as ProductCategoryWithImage;
       return category;
     },
-    catch: () =>
-      new CategoryNotFound({ handle, message: "Category not found" }),
+    catch: () => null,
   });

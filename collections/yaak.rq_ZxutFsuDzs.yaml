@@ -1,0 +1,18 @@
+type: http_request
+model: http_request
+id: rq_ZxutFsuDzs
+createdAt: 2026-11-01T20:34:19.080937518
+updatedAt: 2026-11-01T20:37:22.988048035
+workspaceId: wk_f9vc6u6dt3
+folderId: null
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Products with seller
+sortPriority: -1793017098446.999
+url: ${[ STORE_API ]}/products?fields=*variants.calculated_price,*variants.offer.seller&region_id=${[ REGION_ID ]}
+urlParameters: []

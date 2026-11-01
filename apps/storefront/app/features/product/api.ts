@@ -5,7 +5,7 @@ import { getRegionData } from "../shared/region";
 
 // const OFFERS_FIELDS =
 // "id,selled_id,variant_id,product_id,sku,created_at,updated_at,seller.id,seller.name,seller.handle,*product_variant,product.id,product.title,product.handle,product.thumbnail,product.created_at,product.updated_at,*inventory_item_link,+calculated_price";
-const OFFERS_FIELDS = "*seller,*product";
+const OFFERS_FIELDS = "*seller,*product,*product.categories";
 
 export const listOffers = (request: Request) =>
   Result.gen(async function* () {

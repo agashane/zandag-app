@@ -1,0 +1,18 @@
+type: http_request
+model: http_request
+id: rq_7HfJEjx4yJ
+createdAt: 2026-11-01T20:21:51.501645208
+updatedAt: 2026-11-01T20:32:41.566065692
+workspaceId: wk_f9vc6u6dt3
+folderId: null
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Query products
+sortPriority: -1793017098447.0
+url: ${[ STORE_API ]}/products?fields=*variants.calculated_price,+variants.inventory_quantity,*variants.options,*variants.seller,*attribute_values,*attribute_values.attribute&region_id=${[ REGION_ID ]}
+urlParameters: []
