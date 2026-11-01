@@ -13,12 +13,12 @@ import type { Route } from "./+types/root";
 import { Provider } from "~/components/ui/provider";
 import { commitSession, getSession } from "./server/session";
 import { Result } from "better-result";
-import { getRegionFromSession } from "./server/region";
 import { setupCart } from "./server/cart";
 import { listCategories } from "./features/category/api";
 import type { HttpTypes } from "@mercurjs/types";
 import type { StoreContextType } from "./lib/store.context";
 import { getRegionData } from "./features/shared/region";
+import type { ProductCategoryWithImage } from "./features/category/types";
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
   const session = await getSession(request.headers.get("Cookie"));
@@ -29,7 +29,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
     listCategories(),
   ] as const);
 
-  let categories: Array<HttpTypes.StoreProductCategory> = [];
+  let categories: Array<ProductCategoryWithImage> = [];
   let user: HttpTypes.StoreCustomer | null = null;
   let cart: HttpTypes.StoreCart | null = null;
   let region: HttpTypes.StoreRegion | null = null;
@@ -41,7 +41,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 
     session.set("cartId", cartResponse.id);
     cart = cartResponse;
-    categories = categoriesResponse.unwrap().product_categories;
+    categories = categoriesResponse.product_categories;
   });
 
   return data(

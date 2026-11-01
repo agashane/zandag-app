@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_4p8aoGVE4h
 createdAt: 2026-10-27T12:28:02.104008002
-updatedAt: 2026-10-27T12:33:04.611560619
+updatedAt: 2026-10-27T21:03:32.972801659
 workspaceId: wk_f9vc6u6dt3
 folderId: null
 authentication: {}
@@ -14,5 +14,5 @@ headers: []
 method: GET
 name: Categories
 sortPriority: -1793017098447.0
-url: ${[ STORE_API ]}/product-categories?fields=+media_images.*
+url: ${[ STORE_API ]}/product-categories?fields=*media_images
 urlParameters: []

@@ -9,9 +9,9 @@ interface Props {
 
 export const ProductsScroll = ({ items }: Props) => {
   return (
-    <ScrollArea.Root w="full" size="xs" p="2">
+    <ScrollArea.Root w="full" size="xs" py="2" variant="hover" rounded="radius">
       <ScrollArea.Viewport>
-        <ScrollArea.Content p="4">
+        <ScrollArea.Content py="2">
           <Flex flexWrap="nowrap" gap="4">
             {items.map((item) => (
               <ProductCard key={item.product.id} item={item} />
@@ -19,7 +19,7 @@ export const ProductsScroll = ({ items }: Props) => {
           </Flex>
         </ScrollArea.Content>
       </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar orientation="horizontal" />
+      <ScrollArea.Scrollbar orientation="horizontal" rounded="radius" />
       <ScrollArea.Corner />
     </ScrollArea.Root>
   );

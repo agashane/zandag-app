@@ -23,5 +23,5 @@ export const listOffers = (request: Request) =>
     return offers;
   });
 
-export const listProducts = (params?: HttpTypes.StoreProductListResponse) =>
+export const listProducts = (params?: HttpTypes.StoreProductListParams) =>
   Result.tryPromise(() => mercur.store.products.query({}));

@@ -1,0 +1,18 @@
+type: http_request
+model: http_request
+id: rq_3HvCJBcXUy
+createdAt: 2026-11-01T17:48:55.619307181
+updatedAt: 2026-11-01T17:51:46.632514456
+workspaceId: wk_f9vc6u6dt3
+folderId: null
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Collections
+sortPriority: -1793017098447.0
+url: ${[ STORE_API ]}/collections?fields=*images
+urlParameters: []

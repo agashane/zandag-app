@@ -11,6 +11,7 @@ import { Link } from "react-router";
 import { getProductWithOfferPrice } from "../utils";
 import { IconButton } from "@chakra-ui/react/button";
 import { RiArrowLeftFill, RiArrowRightLine } from "react-icons/ri";
+import { FALLBACK_IMAGE_URL } from "~/features/shared/constants";
 
 interface Props {
   item: ProductWithOffers;
@@ -23,6 +24,7 @@ export const ProductCard = ({ item }: Props) => {
 
   const { cheapestPrice } = getProductWithOfferPrice({ item });
   const productName = String(item.product.title || "Produit");
+  const thumbnail = item.product.thumbnail ?? FALLBACK_IMAGE_URL;
 
   return (
     <LinkBox
@@ -32,39 +34,47 @@ export const ProductCard = ({ item }: Props) => {
       className="group"
       as="article"
       rounded="radius"
+      h="72"
     >
-      <Card.Root rounded="radius">
-        <Box bgColor="bg.muted" rounded="radius" overflow="hidden">
-          {item.product.thumbnail ? (
-            <Image
-              src={item.product.thumbnail}
-              alt={productName}
-              _groupHover={{
-                scale: "1.2",
-                transition: "all 0.2s ease-in",
-              }}
-            />
-          ) : null}
+      <Card.Root rounded="radius" h="full">
+        <Box bgColor="bg.muted" rounded="radius" overflow="hidden" h="60">
+          <Image
+            src={thumbnail}
+            alt={productName}
+            _groupHover={{
+              scale: "1.2",
+              transition: "all 0.2s ease-in",
+            }}
+            h="full"
+            w="full"
+          />
         </Box>
-        <Card.Body px="4" py="2">
-          <Card.Title
-            lineHeight="shorter"
-            fontSize="sm"
-            rounded="radius"
-            lineClamp="2"
-            _groupHover={{ colorPalette: "teal" }}
-          >
-            <LinkOverlay
-              aria-label={`Détails sur ${productName}`}
-              title={`Détails sur ${productName}`}
-              asChild
+        <Card.Body px="4" py="2" flex="1">
+          <VStack align="stretch" flex="1" gap="1">
+            <Card.Title
+              lineHeight="shorter"
+              fontSize="sm"
+              rounded="radius"
+              lineClamp="2"
+              _groupHover={{
+                color: "colorPalette.fg",
+                transition: "all .2s ease-in",
+              }}
             >
-              <Link to={`/products/${item.product.handle}`}>{productName}</Link>
-            </LinkOverlay>
-          </Card.Title>
-          <Text fontSize="xs" color="fg.muted" lineHeight="shorter">
-            {item.seller.name}
-          </Text>
+              <LinkOverlay
+                aria-label={`Détails sur ${productName}`}
+                title={`Détails sur ${productName}`}
+                asChild
+              >
+                <Link to={`/products/${item.product.handle}`}>
+                  {productName}
+                </Link>
+              </LinkOverlay>
+            </Card.Title>
+            <Text fontSize="xs" color="fg.muted" lineHeight="shorter">
+              {item.seller.name}
+            </Text>
+          </VStack>
           <HStack gap="2" align="baseline">
             <VStack align="stretch" gap="0" mt="2" flex="1">
               {cheapestPrice?.calculated_price !==

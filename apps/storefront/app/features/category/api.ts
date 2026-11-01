@@ -2,8 +2,12 @@ import type { HttpTypes } from "@mercurjs/types";
 import { Result } from "better-result";
 import { mercur } from "~/lib/client";
 import { CategoryNotFound } from "./errors";
+import type {
+  ProductCategoriesListResponse,
+  ProductCategoryWithImage,
+} from "./types";
 
-const CATEGORY_FIELDS = "+media_images.*";
+const CATEGORY_FIELDS = "*media_images";
 
 export const listCategories = (
   params?: HttpTypes.StoreProductCategoryListParams,
@@ -19,7 +23,7 @@ export const listCategories = (
       ...params,
     });
 
-    return Result.ok(categories as HttpTypes.StoreProductCategoryListResponse);
+    return categories as ProductCategoriesListResponse;
   });
 
 export const getCategory = (handle: string) =>
@@ -36,7 +40,10 @@ export const getCategory = (handle: string) =>
           message: "Category not found",
         });
 
-      return Result.ok(result.product_categories.at(0)!);
+      const category = result.product_categories.at(
+        0,
+      )! as ProductCategoryWithImage;
+      return category;
     },
     catch: () =>
       new CategoryNotFound({ handle, message: "Category not found" }),

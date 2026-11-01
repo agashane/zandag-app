@@ -1,0 +1,18 @@
+type: http_request
+model: http_request
+id: rq_itjcCXRBzP
+createdAt: 2026-11-01T18:30:42.855773666
+updatedAt: 2026-11-01T18:45:37.763050788
+workspaceId: wk_f9vc6u6dt3
+folderId: null
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Retrieve collection
+sortPriority: -1793017098447.0
+url: ${[ STORE_API ]}/collections?handle=christmas&fields=*products
+urlParameters: []

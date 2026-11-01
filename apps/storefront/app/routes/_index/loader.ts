@@ -1,19 +1,28 @@
-import { mercur } from "~/lib/client";
 import type { Route } from "./+types/route";
-import { env } from "~/env/server";
-import type { OfferDTO, ProductDTO, SellerDTO } from "@mercurjs/types";
-import { getProductsWithOffers } from "~/features/product/utils/group-offers";
 
-type GroupedOffer = {
-  product: ProductDTO;
-  seller: SellerDTO;
-  offers: Array<OfferDTO>;
-};
+import { Result } from "better-result";
+import type { HttpTypes } from "@mercurjs/types";
+import {
+  getProductsWithOffers,
+  type ProductWithOffers,
+} from "~/features/product/utils/group-offers";
+import { listCollections } from "~/features/collection/api";
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
-  const products = (await getProductsWithOffers(request)).unwrapOr([]);
+  const response = await Result.allAsync([
+    getProductsWithOffers(request),
+    listCollections(),
+  ] as const);
 
-  const recommendedProducts = products.slice(0, 8);
+  let recommendedProducts: Array<ProductWithOffers> = [];
+  let collections: HttpTypes.StoreCollectionListResponse["collections"] = [];
 
-  return { recommendedProducts };
+  response.map((res) => {
+    const [products, collectionsRes] = res;
+
+    recommendedProducts = products.slice(0, 8);
+    collections = collectionsRes.collections ?? [];
+  });
+
+  return { recommendedProducts, collections };
 };

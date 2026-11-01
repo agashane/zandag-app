@@ -10,13 +10,14 @@ export const listCollections = (params?: HttpTypes.StoreCollectionListParams) =>
     const defaultParams = {
       limit: 3,
       fields: COLLECTION_FIELDS,
+      order: "-updated_at",
     } satisfies HttpTypes.StoreCollectionListParams;
 
     const collections = await mercur.store.collections.query({
       ...defaultParams,
       ...params,
     });
-    return Result.ok(collections);
+    return collections;
   });
 
 export const getCollection = (handle: string) =>
@@ -24,17 +25,12 @@ export const getCollection = (handle: string) =>
     try: async () => {
       const result = await mercur.store.collections.query({
         handle,
-        fields: COLLECTION_FIELDS,
+        fields: "*media_images,*products",
       });
 
-      if (result.count === 0)
-        throw new CollectionNotFound({
-          handle,
-          message: "Collection not found",
-        });
+      if (result.count === 0) throw null;
 
-      return Result.ok(result.collections.at(0)!);
+      return result.collections.at(0)!;
     },
-    catch: () =>
-      new CollectionNotFound({ handle, message: "Collection not found" }),
+    catch: () => null,
   });
