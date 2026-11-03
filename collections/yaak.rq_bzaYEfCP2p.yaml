@@ -1,0 +1,18 @@
+type: http_request
+model: http_request
+id: rq_bzaYEfCP2p
+createdAt: 2026-11-02T20:36:20.646420983
+updatedAt: 2026-11-02T20:41:13.210824561
+workspaceId: wk_f9vc6u6dt3
+folderId: null
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Retrieve product
+sortPriority: -1793017098447.0
+url: ${[ STORE_API ]}/products?handle=meridian-twin-strap-buckle-sandal&fields=+variants.calculated_price,*seller&region_id=${[ REGION_ID ]}
+urlParameters: []

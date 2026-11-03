@@ -6,7 +6,7 @@ import { Box } from "@chakra-ui/react/box";
 
 import type { ProductWithOffers } from "../utils/group-offers";
 import { LinkBox, LinkOverlay } from "@chakra-ui/react/link";
-import { Link } from "react-router";
+import { createPath, createSearchParams, Link } from "react-router";
 import { getProductWithOfferPrice } from "../utils";
 import { IconButton } from "@chakra-ui/react/button";
 import { RiArrowRightLine } from "react-icons/ri";
@@ -20,6 +20,11 @@ export const ProductCard = ({ item }: Props) => {
   if (!item) {
     return null;
   }
+
+  const productLink = createPath({
+    pathname: `/products/${item.product.handle}`,
+    search: `seller=${item.seller.handle}`,
+  });
 
   const { cheapestPrice } = getProductWithOfferPrice({ item });
   const productName = String(item.product.title || "Produit");
@@ -67,9 +72,7 @@ export const ProductCard = ({ item }: Props) => {
                 title={`Détails sur ${productName}`}
                 asChild
               >
-                <Link to={`/products/${item.product.handle}`}>
-                  {productName}
-                </Link>
+                <Link to={productLink}>{productName}</Link>
               </LinkOverlay>
             </Card.Title>
             <Text fontSize="xs" color="fg.muted" lineHeight="shorter">

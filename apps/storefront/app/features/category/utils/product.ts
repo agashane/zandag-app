@@ -9,8 +9,6 @@ export const getProductsByCategory = (request: Request, id: string) =>
         (category) => category.id,
       );
 
-      console.log(`Categories ${categories?.length}`);
-
       return categories?.includes(id);
     });
 

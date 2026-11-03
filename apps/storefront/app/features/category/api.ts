@@ -6,6 +6,7 @@ import type {
   ProductCategoriesListResponse,
   ProductCategoryWithImage,
 } from "./types";
+import { getProductsWithOffers } from "../product/utils/group-offers";
 
 const CATEGORY_FIELDS = "*media_images";
 

@@ -1,0 +1,18 @@
+type: http_request
+model: http_request
+id: rq_ELcv2EgvMh
+createdAt: 2026-11-03T09:41:08.521855367
+updatedAt: 2026-11-03T11:10:35.584685454
+workspaceId: wk_f9vc6u6dt3
+folderId: null
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Retrieve offers
+sortPriority: -1793017098447.0
+url: ${[ STORE_API ]}/offers?product_id=prod_01M5QJ2M6STYD5GM6X9TY1MM6N&seller_id=sel_01M5QJ2K8G65KHD5Q4FNB72FXJ&region_id=${[ REGION_ID ]}
+urlParameters: []

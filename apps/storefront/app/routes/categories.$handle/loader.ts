@@ -7,7 +7,6 @@ export const loader = async ({ request, params }: Route.LoaderArgs) => {
   const products = !category
     ? []
     : (await getProductsByCategory(request, category.id)).unwrapOr([]);
-  console.log(products.length);
 
   return { category, products };
 };

@@ -44,3 +44,4 @@ yarn-error.log*
 *.pem
 
 meili_data
+/packages/api/static
